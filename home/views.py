@@ -4,6 +4,8 @@ from .models import *
 def home(request):
     views = {}
     views['services'] = Services.objects.all()
+    views['feedbacks']= Feedback.objects.all()
+
     return render(request,'index.html',views)
 
 def about(request):
@@ -11,6 +13,19 @@ def about(request):
     return render(request,'about.html')
 
 def contact(request):
+    if request.method == 'POST':
+        na = request.POST['name']
+        em = request.POST['email']
+        sub = request.POST['subject']
+        mes = request.POST['message']
+        data = Contact.objects.create(
+            name = na,
+            email = em,
+            subject = sub,
+            message = mes
+        )
+        data.save()
+
     
     return render(request,'contact.html')
 
