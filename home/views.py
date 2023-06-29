@@ -40,3 +40,15 @@ def pricing(request):
 def services(request):
     
     return render(request,'services.html')
+
+def blog_home(request):
+    views = {}
+    views['blogs'] = Blog.objects.all()
+
+    return render(request,'blog-single.html',views)
+
+def blog_single(request,id):
+    views = {}
+    views['blogs'] = Blog.objects.filter(id=id)
+
+    return render(request,'blog-single.html',views)
